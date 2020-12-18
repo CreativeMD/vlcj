@@ -27,7 +27,6 @@ import com.sun.jna.platform.win32.WinDef.LPARAM;
 import com.sun.jna.platform.win32.WinDef.RECT;
 import com.sun.jna.platform.win32.WinDef.WPARAM;
 import com.sun.jna.platform.win32.WinUser;
-import com.sun.jna.platform.win32.WinUser.MONITORINFO;
 
 import java.awt.*;
 
@@ -77,12 +76,12 @@ final class Win32FullScreenHandler {
     void setFullScreen(boolean fullScreen) {
         HWND hWnd = getHWND(Native.getComponentID(window));
         if (fullScreen) {
-            windowState = getWindowState(hWnd);
+            /*windowState = getWindowState(hWnd);
             ExtendedUser32.INSTANCE.SetWindowLong(hWnd, GWL_STYLE, windowState.getStyle() & ~(WS_CAPTION | WS_THICKFRAME));
             ExtendedUser32.INSTANCE.SetWindowLong(hWnd, GWL_EXSTYLE, windowState.getExStyle() & ~(WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE));
             MONITORINFO monitorInfo = getMonitorInfo(hWnd);
             RECT rect = monitorInfo.rcMonitor;
-            ExtendedUser32.INSTANCE.SetWindowPos(hWnd, null, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER | SWP_NOACTIVATE | SWP_FRAMECHANGED);
+            ExtendedUser32.INSTANCE.SetWindowPos(hWnd, null, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER | SWP_NOACTIVATE | SWP_FRAMECHANGED);*/
         }
         else {
             ExtendedUser32.INSTANCE.SetWindowLong(hWnd, GWL_STYLE, windowState.getStyle());
@@ -127,19 +126,6 @@ final class Win32FullScreenHandler {
             windowState.setBottom(rect.bottom);
         }
         return windowState;
-    }
-
-    /**
-     * Get monitor information.
-     *
-     * @param hWnd native window handle
-     * @return native monitor information
-     */
-    private MONITORINFO getMonitorInfo(HWND hWnd) {
-        Pointer hMonitor = ExtendedUser32.INSTANCE.MonitorFromWindow(hWnd, ExtendedUser32.MONITOR_DEFAULTTONEAREST);
-        MONITORINFO monitorInfo = new MONITORINFO();
-        ExtendedUser32.INSTANCE.GetMonitorInfoA(hMonitor, monitorInfo);
-        return monitorInfo;
     }
 
 }
