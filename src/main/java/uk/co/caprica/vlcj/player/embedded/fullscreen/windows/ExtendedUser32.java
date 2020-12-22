@@ -32,7 +32,7 @@ interface ExtendedUser32 extends User32 {
     /**
      * Native library instance.
      */
-    ExtendedUser32 INSTANCE = Native.load("user32", ExtendedUser32.class, W32APIOptions.DEFAULT_OPTIONS);
+    ExtendedUser32 INSTANCE = Native.loadLibrary("user32", ExtendedUser32.class, W32APIOptions.DEFAULT_OPTIONS);
 
     int SC_RESTORE = 0x0000f120;
 
@@ -67,14 +67,14 @@ interface ExtendedUser32 extends User32 {
      */
     Pointer MonitorFromWindow(HWND hWnd, DWORD dwFlags);
 
-    /**
+    /*
      * Get native monitor information.
      *
      * @param hMonitor native monitor handle
      * @param lpMonitorInfo structure to receive monitor information
      * @return <code>true</code> on success; <code>false</code> otherwise
-     */
-    boolean GetMonitorInfoA(Pointer hMonitor, MONITORINFO lpMonitorInfo);
+     *
+    boolean GetMonitorInfoA(Pointer hMonitor, MONITORINFO lpMonitorInfo);*/
 
     /**
      * Send a message to a native window.
